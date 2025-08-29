@@ -1,0 +1,3 @@
+[submodule "first-responder-demo"]
+	path = first-responder-demo
+	url = git@github.com:wildfly-extras/first-responder-demo.git

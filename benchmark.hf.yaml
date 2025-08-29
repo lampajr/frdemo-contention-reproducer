@@ -1,0 +1,71 @@
+name: frdemo
+
+http:
+  host: !param SERVER localhost:8080
+  sharedConnections: !param SHARED_CONNECTIONS 500
+  useHttpCache: false
+
+ergonomics: # Disable stopping the scenario on 4xx or 5xx response
+  autoRangeCheck: false
+
+phases:
+- rampUp:
+    increasingRate:
+      duration: !param RAMP_UP_DURATION 100s
+      isWarmup: false
+      maxSessions: !param MAX_HTTP_SESSIONS 200
+      initialUsersPerSec: 1
+      targetUsersPerSec: !param USERS_PER_SEC 100
+      scenario: &frdemoGet
+        initialSequences:
+          - getAvaiablelResponders:
+              - httpRequest:
+                  GET: /responder-service/available
+          - getAllMissions:
+              - httpRequest:
+                  GET: /api/missions
+                  handler:
+                    body:
+                      json:
+                        query: .[].responderId
+                        processor:
+                          array:
+                            toVar: responderIds
+                            format: STRING
+                            maxSize: !param MAX_MISSIONS 10
+              # - log: Responders ${responderIds}
+          - getResponderById:
+              - awaitAllResponses
+              - randomItem:
+                  fromVar: responderIds
+                  toVar: selectedResponderId
+              # - log: Querying responder ${selectedResponderId}
+              - httpRequest:
+                  GET: /responder-service/${selectedResponderId}
+          - getAllIncidents:
+              - httpRequest:
+                  GET: /incidents
+                  handler:
+                    body:
+                      json:
+                        query: .[].id
+                        processor:
+                          array:
+                            toVar: incidents
+                            format: STRING
+                            maxSize: !param MAX_INCIDENTS 10
+          - getIncidentById:
+              - awaitAllResponses
+              - randomItem:
+                  fromVar: incidents
+                  toVar: selectedIncidentId
+              # - log: Querying incident ${selectedIncidentId}
+              - httpRequest:
+                  GET: /incidents/incident/${selectedIncidentId}
+- demoSteady:
+    constantRate:
+      usersPerSec: !param USERS_PER_SEC 100
+      maxSessions: !param MAX_HTTP_SESSIONS 200
+      startAfter: rampUp
+      duration: !param STEADY_STATE_DURATION 1m
+      scenario: *frdemoGet
