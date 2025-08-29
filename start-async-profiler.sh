@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -x
+
 ASPROF_VERSION=${ASPROF_VERSION:-"4.0"}
 ASPROF_RELEASE_URL=${ASPROF_RELEASE_URL:-"https://github.com/async-profiler/async-profiler/releases/download/v${ASPROF_VERSION}/async-profiler-${ASPROF_VERSION}-linux-x64.tar.gz"}
 ASPROF_DIR=${ASPROF_DIR:-"/tmp/async-profiler"}
@@ -19,8 +21,7 @@ if [ ! -d "$ASPROF_DIR" ]; then
   ls ${ASPROF_DIR}
 fi
 
-if [ -d ${ASPROF_OUT_DIR} ]; then 
-  rm -rf ${ASPROF_OUT_DIR};
+if [ ! -d ${ASPROF_OUT_DIR} ]; then 
   mkdir -p ${ASPROF_OUT_DIR} && chmod 777 ${ASPROF_OUT_DIR} || echo "Cannot create ${ASPROF_OUT_DIR} directory"
 fi
 

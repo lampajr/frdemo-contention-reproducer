@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -x
+
 ASPROF_DIR=${ASPROF_DIR:-"/tmp/async-profiler"}
 ASPROF_OUT_DIR=${ASPROF_OUT_DIR:-"/tmp/async-profiler-output"}
 
@@ -12,4 +14,4 @@ fi
 
 cd ${ASPROF_DIR}
 
-bin/asprof stop  -f ${ASPROF_OUT_DIR}/standalone_${ASPROF_EVENT}.jfr --title "Standalone $(date +"%Y-%m-%dT%H:%M:%SZ)" ${STANDALONE_PID}
+bin/asprof stop  -f ${ASPROF_OUT_DIR}/standalone_${ASPROF_EVENT}.jfr --title "Standalone profiling" ${STANDALONE_PID}
