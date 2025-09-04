@@ -50,7 +50,7 @@ Before starting the benchmark itself, it will attach async-profiler to properly
 capture JFR recordings for further analysis.
 
 ```bash
-ASPROF_PARAMS="-e <cpu|lock> --jfrsync profile" ./run-benchmark.sh
+ASPROF_OUT_FILENAME="standalone" ASPROF_PARAMS="-e <cpu|lock> --jfrsync profile" ./run-benchmark.sh
 ```
 
 ## Analysis

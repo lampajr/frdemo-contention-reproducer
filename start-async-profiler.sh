@@ -7,8 +7,9 @@ ASPROF_RELEASE_URL=${ASPROF_RELEASE_URL:-"https://github.com/async-profiler/asyn
 ASPROF_DIR=${ASPROF_DIR:-"/tmp/async-profiler"}
 ASPROF_OUT_DIR=${ASPROF_OUT_DIR:-"/tmp/async-profiler-output"}
 
-ASPROF_EVENT=${ASPROF_EVENT:-"cpu"}
-ASPROF_PARAMS=${ASPROF_PARAMS:-"--jfrsync profile"}
+ASPROF_PARAMS=${ASPROF_PARAMS:-"--jfrsync profile -e cpu,lock "}
+
+ASPROF_OUT_FILENAME=${ASPROF_OUT_FILENAME:-"standalone"}
 
 cd /tmp
 
@@ -27,4 +28,4 @@ fi
 
 cd ${ASPROF_DIR}
 
-bin/asprof start -f ${ASPROF_OUT_DIR}/standalone.jfr ${ASPROF_PARAMS} ${STANDALONE_PID}
+bin/asprof start -f ${ASPROF_OUT_DIR}/${ASPROF_OUT_FILENAME}.jfr ${ASPROF_PARAMS} ${STANDALONE_PID}

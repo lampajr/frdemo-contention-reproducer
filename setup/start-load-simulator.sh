@@ -2,7 +2,7 @@
 
 CWD="$(dirname "$0")"
 
-cd first-responder-demo
+cd ${CWD}/../first-responder-demo
 
 if [ ! -d "simulator/target" ]; then
   echo "Simulator jar not found, building.."

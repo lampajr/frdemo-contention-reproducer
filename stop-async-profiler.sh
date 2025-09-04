@@ -4,6 +4,7 @@ set -x
 
 ASPROF_DIR=${ASPROF_DIR:-"/tmp/async-profiler"}
 ASPROF_OUT_DIR=${ASPROF_OUT_DIR:-"/tmp/async-profiler-output"}
+ASPROF_OUT_FILENAME=${ASPROF_OUT_FILENAME:-"standalone"}
 
 cd /tmp
 
@@ -14,4 +15,4 @@ fi
 
 cd ${ASPROF_DIR}
 
-bin/asprof stop  -f ${ASPROF_OUT_DIR}/standalone_${ASPROF_EVENT}.jfr --title "Standalone profiling" ${STANDALONE_PID}
+bin/asprof stop  -f ${ASPROF_OUT_DIR}/${ASPROF_OUT_FILENAME}.jfr --title "Standalone profiling" ${STANDALONE_PID}
