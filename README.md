@@ -50,7 +50,7 @@ Before starting the benchmark itself, it will attach async-profiler to properly
 capture JFR recordings for further analysis.
 
 ```bash
-./run-benchmark.sh
+ASPROF_PARAMS="-e <cpu|lock> --jfrsync profile" ./run-benchmark.sh
 ```
 
 ## Analysis
@@ -63,5 +63,5 @@ the results themselves.
 
 ![HF Latencies](./img/hf_report_2.png)
 
-At `/tmp/async-profiler-output/standalone_cpu.jfr` you can find the generated JFR recording that you can
+At `/tmp/async-profiler-output/standalone.jfr` you can find the generated JFR recording that you can
 inspect using other tools like Java Mission Control (JMC).

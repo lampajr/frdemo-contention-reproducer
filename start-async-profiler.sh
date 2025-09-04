@@ -27,4 +27,4 @@ fi
 
 cd ${ASPROF_DIR}
 
-bin/asprof start -e ${ASPROF_EVENT} -f ${ASPROF_OUT_DIR}/standalone_${ASPROF_EVENT}.jfr ${ASPROF_PARAMS} ${STANDALONE_PID}
+bin/asprof start -f ${ASPROF_OUT_DIR}/standalone.jfr ${ASPROF_PARAMS} ${STANDALONE_PID}

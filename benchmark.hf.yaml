@@ -15,7 +15,7 @@ phases:
       isWarmup: false
       maxSessions: !param MAX_HTTP_SESSIONS 200
       initialUsersPerSec: 1
-      targetUsersPerSec: !param USERS_PER_SEC 100
+      targetUsersPerSec: !param USERS_PER_SEC 300
       scenario: &frdemoGet
         initialSequences:
           - getAvaiablelResponders:
@@ -64,7 +64,7 @@ phases:
                   GET: /incidents/incident/${selectedIncidentId}
 - demoSteady:
     constantRate:
-      usersPerSec: !param USERS_PER_SEC 100
+      usersPerSec: !param USERS_PER_SEC 300
       maxSessions: !param MAX_HTTP_SESSIONS 200
       startAfter: rampUp
       duration: !param STEADY_STATE_DURATION 1m
